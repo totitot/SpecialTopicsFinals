@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using Accord.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Accord.DataSets;
 using Accord.Imaging.Filters;
-using Accord.Imaging;
+using Shipwreck.Phash;
+using Shipwreck.Phash.Bitmaps;
+using Accord.Math.Distances;
 
 namespace SpecialTopicsFinals
 {
@@ -29,39 +32,60 @@ namespace SpecialTopicsFinals
 
             TestImages t = new TestImages();
 
-            string path_earl = System.IO.Path.GetFullPath(@"../../earl.png");
-            string path_janre1 = System.IO.Path.GetFullPath(@"../../janre1.png");
-            //Bitmap baboon = t["girl.png"];
-            Bitmap baboon = new Bitmap(path_earl);
-            GaussianBlur blur = new GaussianBlur();
+            string path_earl = System.IO.Path.GetFullPath(@"../../janre1.png");
+            string path_janre1 = System.IO.Path.GetFullPath(@"../../earl.png");
 
-            //Bitmap result = blur.Apply(baboon);
-            Bitmap result = new Bitmap(path_janre1);
+            var bitmap = (Bitmap)Accord.Imaging.Image.FromFile(path_earl);
+            var bitmap1 = new Bitmap(path_earl);
+            var bitmap2 = new Bitmap(path_janre1);
+            var hash1 = ImagePhash.ComputeDigest(bitmap1.ToLuminanceImage());
+            var hash2 = ImagePhash.ComputeDigest(bitmap2.ToLuminanceImage());
+            var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
+
+            Console.WriteLine("score: {0}", score);
+
+            Grayscale filter = new Grayscale(0.2125, 0.7154, 0.0721);
+            // apply the filter to the model
+            Bitmap grey1 = filter.Apply(bitmap1);
+            // Apply the filter to the observed image
+            Bitmap grey2 = filter.Apply(bitmap2);
+            int modelPoints = 0, matchingPoints = 0;
 
 
+            //CorrelationMatching matcher = new CorrelationMatching(5, grey1, grey2);
+            //var results = matcher.GetHashCode();
+            var detector = new FastCornersDetector(60);
+            var freak = new FastRetinaKeypointDetector(detector);
+            List<FastRetinaKeypoint> features1 = (List<FastRetinaKeypoint>)freak.Transform(grey1);
+            modelPoints = features1.Count();
 
-            //BlobCounter bc = new BlobCounter();
-            //bc.FilterBlobs = true;
-            //bc.MinHeight = 10;
-            //bc.MinWidth = 10;
-            //bc.ProcessImage(baboon);
+            Console.WriteLine("count: {0}", modelPoints);
 
 
-            //Blob[] blobs = bc.GetObjectsInformation();
+            List<FastRetinaKeypoint> features2 = (List<FastRetinaKeypoint>)freak.Transform(grey2);
 
-            //bc.ExtractBlobsImage(baboon, blobs[0], true);
+            Console.WriteLine("count: {0}", features2.Count());
 
-            //Console.WriteLine("number of blobs {0}", blobs.Length);
+            KNearestNeighborMatching matcher = new KNearestNeighborMatching(5);
+            var results = matcher.Match(features1, features2);
+            matchingPoints = results.Count();
+            Console.WriteLine("matched points: {0}", matchingPoints);
 
-            //sourcebox.Image = baboon;
-            //resultbox.Image = blobs[0].Image.ToManagedImage();
+            sourcebox.Image = grey1;
+            source2box.Image = grey2;
+            var marker = new FeaturesMarker(features1, 20);
+            resultbox.Image = marker.Apply(grey1);
 
-            Difference dif = new Difference(result);
-            Bitmap resultdif = dif.Apply(baboon);
+            float similPercent = 0;
+            if (matchingPoints <= 0)
+            {
+                similPercent = 0.0f;
+            }
+            similPercent = (matchingPoints * 100) / modelPoints;
 
-            sourcebox.Image = baboon;
-            source2box.Image = result;
-            resultbox.Image = resultdif;
+            Console.WriteLine("score: {0}", similPercent);
+
+            //resultbox.Image = resultdif;
 
             //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
             //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
