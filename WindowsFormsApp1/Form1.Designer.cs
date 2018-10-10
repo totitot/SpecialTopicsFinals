@@ -33,6 +33,8 @@
             this.source2box = new Accord.Controls.PictureBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.resultbox = new Accord.Controls.PictureBox();
+            this.sourcebox_btn = new System.Windows.Forms.Button();
+            this.source2box_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.source2box)).BeginInit();
@@ -82,11 +84,33 @@
             this.resultbox.TabIndex = 3;
             this.resultbox.TabStop = false;
             // 
+            // sourcebox_btn
+            // 
+            this.sourcebox_btn.Location = new System.Drawing.Point(127, 384);
+            this.sourcebox_btn.Name = "sourcebox_btn";
+            this.sourcebox_btn.Size = new System.Drawing.Size(59, 28);
+            this.sourcebox_btn.TabIndex = 4;
+            this.sourcebox_btn.Text = "...";
+            this.sourcebox_btn.UseVisualStyleBackColor = true;
+            this.sourcebox_btn.Click += new System.EventHandler(this.sourcebox_btn_Click);
+            // 
+            // source2box_btn
+            // 
+            this.source2box_btn.Location = new System.Drawing.Point(433, 384);
+            this.source2box_btn.Name = "source2box_btn";
+            this.source2box_btn.Size = new System.Drawing.Size(59, 28);
+            this.source2box_btn.TabIndex = 5;
+            this.source2box_btn.Text = "...";
+            this.source2box_btn.UseVisualStyleBackColor = true;
+            this.source2box_btn.Click += new System.EventHandler(this.source2box_btn_Click);
+            // 
             // SpecialTopicsFinals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1316, 681);
+            this.Controls.Add(this.source2box_btn);
+            this.Controls.Add(this.sourcebox_btn);
             this.Controls.Add(this.resultbox);
             this.Controls.Add(this.source2box);
             this.Controls.Add(this.pictureBox1);
@@ -109,6 +133,8 @@
         private Accord.Controls.PictureBox source2box;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private Accord.Controls.PictureBox resultbox;
+        private System.Windows.Forms.Button sourcebox_btn;
+        private System.Windows.Forms.Button source2box_btn;
     }
 }
 

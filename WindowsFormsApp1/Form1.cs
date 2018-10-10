@@ -90,5 +90,48 @@ namespace SpecialTopicsFinals
             //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
             //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
         }
+
+        private void sourcebox_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+                openFileDialog1.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "..\\..\\";
+                openFileDialog1.FileName = "";
+                DialogResult dr = openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    //textBox1.Text = openFileDialog1.FileName;
+                    //sourcebox.Load(openFileDialog1.FileName);
+                    var bitmap = new Bitmap(openFileDialog1.FileName);
+                    sourcebox.Image = bitmap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception:" + ex.ToString());
+            }
+        }
+
+        private void source2box_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+                openFileDialog1.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "..\\..\\";
+                openFileDialog1.FileName = "";
+                DialogResult dr = openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    //textBox1.Text = openFileDialog1.FileName;
+                    var bitmap = new Bitmap(openFileDialog1.FileName);
+                    source2box.Image = bitmap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception:" + ex.ToString());
+            }
+        }
     }
 }
