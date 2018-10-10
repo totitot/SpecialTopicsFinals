@@ -42,6 +42,8 @@
             this.resultbox2 = new Accord.Controls.PictureBox();
             this.phash_label = new System.Windows.Forms.Label();
             this.simil2 = new System.Windows.Forms.Label();
+            this.angle_label = new System.Windows.Forms.Label();
+            this.angle_text = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox2)).BeginInit();
@@ -180,6 +182,26 @@
             this.simil2.TabIndex = 9;
             this.simil2.Text = "%";
             // 
+            // angle_label
+            // 
+            this.angle_label.AutoSize = true;
+            this.angle_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.angle_label.Location = new System.Drawing.Point(276, 610);
+            this.angle_label.Name = "angle_label";
+            this.angle_label.Size = new System.Drawing.Size(107, 18);
+            this.angle_label.TabIndex = 7;
+            this.angle_label.Text = "Rotation angle:";
+            // 
+            // angle_text
+            // 
+            this.angle_text.AutoSize = true;
+            this.angle_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.angle_text.Location = new System.Drawing.Point(413, 610);
+            this.angle_text.Name = "angle_text";
+            this.angle_text.Size = new System.Drawing.Size(18, 18);
+            this.angle_text.TabIndex = 9;
+            this.angle_text.Text = "° ";
+            // 
             // SpecialTopicsFinals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,8 +210,10 @@
             this.Controls.Add(this.phash_label);
             this.Controls.Add(this.resultbox2);
             this.Controls.Add(this.simil2);
+            this.Controls.Add(this.angle_text);
             this.Controls.Add(this.simil1);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.angle_label);
             this.Controls.Add(this.freak_label);
             this.Controls.Add(this.process_btn);
             this.Controls.Add(this.source2box_btn);
@@ -227,6 +251,8 @@
         private Accord.Controls.PictureBox resultbox2;
         private System.Windows.Forms.Label phash_label;
         private System.Windows.Forms.Label simil2;
+        private System.Windows.Forms.Label angle_label;
+        private System.Windows.Forms.Label angle_text;
     }
 }
 

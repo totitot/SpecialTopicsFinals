@@ -102,13 +102,26 @@ namespace SpecialTopicsFinals
 
             Console.WriteLine("score: {0}", score);
 
+            //threshold value
+            var thres = new Threshold(110);
+
             Grayscale filter = new Grayscale(0.2125, 0.7154, 0.0721);
             // apply the filter to the model
             Bitmap grey1 = filter.Apply(bitmap1);
+            thres.ApplyInPlace(grey1);
+            
             // Apply the filter to the observed image
             Bitmap grey2 = filter.Apply(bitmap2);
+            thres.ApplyInPlace(grey2);
+
             int modelPoints = 0, matchingPoints = 0;
 
+            var skewChecker = new DocumentSkewChecker();
+
+            var angle = skewChecker.GetSkewAngle(grey2);
+            var rotationFilter = new RotateBicubic(-angle);
+            rotationFilter.FillColor = Color.White;
+            grey2 = rotationFilter.Apply(grey2);
 
             //CorrelationMatching matcher = new CorrelationMatching(5, grey1, grey2);
             //var results = matcher.GetHashCode();
@@ -118,7 +131,6 @@ namespace SpecialTopicsFinals
             modelPoints = features1.Count();
 
             Console.WriteLine("count: {0}", modelPoints);
-
 
             FastRetinaKeypoint[] features2 = freak.Transform(grey2).ToArray();
 
@@ -138,8 +150,7 @@ namespace SpecialTopicsFinals
             var marker1 = new FeaturesMarker(features1, 30);
             var marker2 = new FeaturesMarker(features2, 30);
 
-            resultbox1.Image = marker1.Apply(grey1);
-            resultbox2.Image = marker2.Apply(grey2);
+
 
             double similPercent = 0;
             if (matchingPoints <= 0)
@@ -150,9 +161,12 @@ namespace SpecialTopicsFinals
 
             Console.WriteLine("score: {0}", similPercent);
 
-            simil1.Text = similPercent.ToString() + "%";
-            simil2.Text = (score*100.00d).ToString() + "%";
+            simil1.Text = similPercent.ToString("##.##") + "%";
+            simil2.Text = (score*100.00d).ToString("##.##") + "%";
 
+            angle_text.Text = angle.ToString("##.##") + "°";
+            resultbox1.Image = marker1.Apply(grey1);
+            resultbox2.Image = marker2.Apply(grey2);
 
             //resultbox.Image = resultdif;
 
