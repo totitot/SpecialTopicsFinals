@@ -86,8 +86,13 @@ namespace SpecialTopicsFinals
 
         private void process_btn_Click(object sender, EventArgs e)
         {
-            var bitmap1 = (Bitmap) sourcebox.Image;
-            var bitmap2 = (Bitmap) source2box.Image;
+            process1();
+        }
+
+        private void process1()
+        {
+            var bitmap1 = (Bitmap)sourcebox.Image;
+            var bitmap2 = (Bitmap)source2box.Image;
             var hash1 = ImagePhash.ComputeDigest(bitmap1.ToLuminanceImage());
             var hash2 = ImagePhash.ComputeDigest(bitmap2.ToLuminanceImage());
             var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
@@ -135,10 +140,17 @@ namespace SpecialTopicsFinals
 
             Console.WriteLine("score: {0}", similPercent);
 
+            simil.Text = similPercent.ToString() + "%";
+
             //resultbox.Image = resultdif;
 
             //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
             //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
+        }
+
+
+        private void process2()
+        {
 
         }
     }
