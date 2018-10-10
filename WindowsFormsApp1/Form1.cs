@@ -29,15 +29,70 @@ namespace SpecialTopicsFinals
             source2box.SizeMode = PictureBoxSizeMode.Zoom;
             resultbox.SizeMode = PictureBoxSizeMode.Zoom;
 
-
             TestImages t = new TestImages();
 
             string path_earl = System.IO.Path.GetFullPath(@"../../janre1.png");
             string path_janre1 = System.IO.Path.GetFullPath(@"../../earl.png");
 
-            var bitmap = (Bitmap)Accord.Imaging.Image.FromFile(path_earl);
             var bitmap1 = new Bitmap(path_earl);
             var bitmap2 = new Bitmap(path_janre1);
+
+            sourcebox.Image = bitmap1;
+            source2box.Image = bitmap2;
+        }
+
+        private void sourcebox_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+                openFileDialog1.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "..\\..\\";
+                openFileDialog1.FileName = "";
+                DialogResult dr = openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    //textBox1.Text = openFileDialog1.FileName;
+                    //sourcebox.Load(openFileDialog1.FileName);
+                    var bitmap = new Bitmap(openFileDialog1.FileName);
+                    sourcebox.Image = bitmap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception:" + ex.ToString());
+            }
+        }
+
+        private void source2box_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png|All files (*.*)|*.*";
+                openFileDialog1.InitialDirectory = System.IO.Path.GetDirectoryName(Application.ExecutablePath) + "..\\..\\";
+                openFileDialog1.FileName = "";
+                DialogResult dr = openFileDialog1.ShowDialog();
+                if (dr == DialogResult.OK)
+                {
+                    //textBox1.Text = openFileDialog1.FileName;
+                    var bitmap = new Bitmap(openFileDialog1.FileName);
+                    source2box.Image = bitmap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Exception:" + ex.ToString());
+            }
+        }
+
+        private void process_btn_Click(object sender, EventArgs e)
+        {
+            process1();
+        }
+
+        private void process1()
+        {
+            var bitmap1 = (Bitmap)sourcebox.Image;
+            var bitmap2 = (Bitmap)source2box.Image;
             var hash1 = ImagePhash.ComputeDigest(bitmap1.ToLuminanceImage());
             var hash2 = ImagePhash.ComputeDigest(bitmap2.ToLuminanceImage());
             var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
@@ -85,10 +140,18 @@ namespace SpecialTopicsFinals
 
             Console.WriteLine("score: {0}", similPercent);
 
+            simil.Text = similPercent.ToString() + "%";
+
             //resultbox.Image = resultdif;
 
             //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
             //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
+        }
+
+
+        private void process2()
+        {
+
         }
     }
 }
