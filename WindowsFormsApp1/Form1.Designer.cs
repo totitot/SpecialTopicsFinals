@@ -35,6 +35,7 @@
             this.resultbox = new Accord.Controls.PictureBox();
             this.sourcebox_btn = new System.Windows.Forms.Button();
             this.source2box_btn = new System.Windows.Forms.Button();
+            this.process_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.source2box)).BeginInit();
@@ -104,11 +105,22 @@
             this.source2box_btn.UseVisualStyleBackColor = true;
             this.source2box_btn.Click += new System.EventHandler(this.source2box_btn_Click);
             // 
+            // process_btn
+            // 
+            this.process_btn.Location = new System.Drawing.Point(764, 384);
+            this.process_btn.Name = "process_btn";
+            this.process_btn.Size = new System.Drawing.Size(59, 28);
+            this.process_btn.TabIndex = 6;
+            this.process_btn.Text = "process";
+            this.process_btn.UseVisualStyleBackColor = true;
+            this.process_btn.Click += new System.EventHandler(this.process_btn_Click);
+            // 
             // SpecialTopicsFinals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1316, 681);
+            this.Controls.Add(this.process_btn);
             this.Controls.Add(this.source2box_btn);
             this.Controls.Add(this.sourcebox_btn);
             this.Controls.Add(this.resultbox);
@@ -135,6 +147,7 @@
         private Accord.Controls.PictureBox resultbox;
         private System.Windows.Forms.Button sourcebox_btn;
         private System.Windows.Forms.Button source2box_btn;
+        private System.Windows.Forms.Button process_btn;
     }
 }
 
