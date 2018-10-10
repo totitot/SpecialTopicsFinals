@@ -36,6 +36,9 @@
             this.sourcebox_btn = new System.Windows.Forms.Button();
             this.source2box_btn = new System.Windows.Forms.Button();
             this.process_btn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.simil = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.source2box)).BeginInit();
@@ -115,11 +118,42 @@
             this.process_btn.UseVisualStyleBackColor = true;
             this.process_btn.Click += new System.EventHandler(this.process_btn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(1000, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 18);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Similarity:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1091, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 8;
+            // 
+            // simil
+            // 
+            this.simil.AutoSize = true;
+            this.simil.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simil.Location = new System.Drawing.Point(1077, 32);
+            this.simil.Name = "simil";
+            this.simil.Size = new System.Drawing.Size(21, 18);
+            this.simil.TabIndex = 9;
+            this.simil.Text = "%";
+            // 
             // SpecialTopicsFinals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1316, 681);
+            this.Controls.Add(this.simil);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.process_btn);
             this.Controls.Add(this.source2box_btn);
             this.Controls.Add(this.sourcebox_btn);
@@ -135,6 +169,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.source2box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultbox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -148,6 +183,9 @@
         private System.Windows.Forms.Button sourcebox_btn;
         private System.Windows.Forms.Button source2box_btn;
         private System.Windows.Forms.Button process_btn;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label simil;
     }
 }
 
