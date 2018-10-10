@@ -12,21 +12,12 @@ using Accord.DataSets;
 using Accord.Imaging.Filters;
 using Shipwreck.Phash;
 using Shipwreck.Phash.Bitmaps;
-using Accord;
-using Accord.Math;
-using System.Drawing.Imaging;
+using Accord.Math.Distances;
 
 namespace SpecialTopicsFinals
 {
     public partial class SpecialTopicsFinals : Form
     {
-
-        private IntPoint[] harrisPoints1;
-        private IntPoint[] harrisPoints2;
-
-        private IntPoint[] correlationPoints1;
-        private IntPoint[] correlationPoints2;
-
         public SpecialTopicsFinals()
         {
             InitializeComponent();
@@ -41,114 +32,63 @@ namespace SpecialTopicsFinals
 
             TestImages t = new TestImages();
 
-            //string path_earl = System.IO.Path.GetFullPath(@"../../earl.png");
-            //string path_janre1 = System.IO.Path.GetFullPath(@"../../janre1.png");
-
             string path_earl = System.IO.Path.GetFullPath(@"../../janre1.png");
-            string path_janre1 = System.IO.Path.GetFullPath(@"../../janre2.png");
-            //string path_janre1 = System.IO.Path.GetFullPath(@"../../car1.png");
-            //string path_janre1 = System.IO.Path.GetFullPath(@"../../nokia1.png");
+            string path_janre1 = System.IO.Path.GetFullPath(@"../../earl.png");
 
-            /*
             var bitmap = (Bitmap)Accord.Imaging.Image.FromFile(path_earl);
             var bitmap1 = new Bitmap(path_earl);
             var bitmap2 = new Bitmap(path_janre1);
             var hash1 = ImagePhash.ComputeDigest(bitmap1.ToLuminanceImage());
             var hash2 = ImagePhash.ComputeDigest(bitmap2.ToLuminanceImage());
             var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
-            */
+
+            Console.WriteLine("score: {0}", score);
+
+            Grayscale filter = new Grayscale(0.2125, 0.7154, 0.0721);
+            // apply the filter to the model
+            Bitmap grey1 = filter.Apply(bitmap1);
+            // Apply the filter to the observed image
+            Bitmap grey2 = filter.Apply(bitmap2);
+            int modelPoints = 0, matchingPoints = 0;
 
 
-            var bitmap1 = new Bitmap(path_earl);
-            var bitmap2 = new Bitmap(path_janre1);
+            //CorrelationMatching matcher = new CorrelationMatching(5, grey1, grey2);
+            //var results = matcher.GetHashCode();
+            var detector = new FastCornersDetector(60);
+            var freak = new FastRetinaKeypointDetector(detector);
+            List<FastRetinaKeypoint> features1 = (List<FastRetinaKeypoint>)freak.Transform(grey1);
+            modelPoints = features1.Count();
 
-            /*
-            HarrisCornersDetector harris = new HarrisCornersDetector(
-                HarrisCornerMeasure.Harris, 20000f, 1.4f, 5);
-            harrisPoints1 = harris.ProcessImage(bitmap1).ToArray();
-            harrisPoints2 = harris.ProcessImage(bitmap2).ToArray();
-
-            CorrelationMatching matcher = new CorrelationMatching(9, bitmap1, bitmap2);
-            IntPoint[][] matches = matcher.Match(harrisPoints1, harrisPoints2);
-
-            // Get the two sets of points
-            correlationPoints1 = matches[0];
-            correlationPoints2 = matches[1];
-
-            // Concatenate the two images in a single image (just to show on screen)
-            Concatenate concat = new Concatenate(bitmap1);
-            Bitmap img3 = concat.Apply(bitmap2);
-
-            // Show the marked correlations in the concatenated image
-            PairsMarker pairs = new PairsMarker(
-                correlationPoints1, // Add image1's width to the X points to show the markings correctly
-                correlationPoints2.Apply(p => new IntPoint(p.X + bitmap1.Width, p.Y)));
-
-            resultbox.Image = pairs.Apply(img3);
-
-            //System.Console.Write("score: " + score);
-            */
+            Console.WriteLine("count: {0}", modelPoints);
 
 
-            /*
-            // create template matching algorithm's instance
-            // use zero similarity to make sure algorithm will provide anything
-            ExhaustiveTemplateMatching tm = new ExhaustiveTemplateMatching(0);
+            List<FastRetinaKeypoint> features2 = (List<FastRetinaKeypoint>)freak.Transform(grey2);
 
-            // compare two images
-            TemplateMatch[] matchings = tm.ProcessImage(bitmap1, bitmap2);
+            Console.WriteLine("count: {0}", features2.Count());
 
-            // check similarity level
-            if (matchings[0].Similarity > 0.95f)
+            KNearestNeighborMatching matcher = new KNearestNeighborMatching(5);
+            var results = matcher.Match(features1, features2);
+            matchingPoints = results.Count();
+            Console.WriteLine("matched points: {0}", matchingPoints);
+
+            sourcebox.Image = grey1;
+            source2box.Image = grey2;
+            var marker = new FeaturesMarker(features1, 20);
+            resultbox.Image = marker.Apply(grey1);
+
+            float similPercent = 0;
+            if (matchingPoints <= 0)
             {
-                // do something with quite similar images
+                similPercent = 0.0f;
             }
-            */
+            similPercent = (matchingPoints * 100) / modelPoints;
 
-            /*
-            source2box.Image = bitmap1;
-            sourcebox.Image = bitmap2;
+            Console.WriteLine("score: {0}", similPercent);
 
-            // create template matching algorithm's instance
-            var tm = new ExhaustiveTemplateMatching(0);
+            //resultbox.Image = resultdif;
 
-            // find all matchings with specified above similarity
-            TemplateMatch[] matchings = tm.ProcessImage(bitmap2, bitmap1);
-
-            // highlight found matchings
-            BitmapData data = bitmap2.LockBits(ImageLockMode.ReadWrite);
-
-            foreach (TemplateMatch m in matchings)
-            {
-                Drawing.Rectangle(data, m.Rectangle, Color.Red);
-                // do something else with the matching
-            }
-
-            bitmap2.UnlockBits(data);
-            resultbox.Image = bitmap2;
-            */
-
-            TemplateMatch[] matchings;
-            float similarityMax = 0f;
-            float threshold = 0.925f;
-            ExhaustiveTemplateMatching exhaustiveTemplateMatching = new ExhaustiveTemplateMatching(threshold);
-            matchings = exhaustiveTemplateMatching.ProcessImage(bitmap2, bitmap1);
-            BitmapData data = bitmap2.LockBits(
-                            new Rectangle(0, 0, bitmap2.Width, bitmap2.Height),
-                            ImageLockMode.ReadWrite, bitmap2.PixelFormat);
-            foreach (TemplateMatch m in matchings)
-            {
-                Drawing.Rectangle(data, m.Rectangle, Color.Red); // Adding rectangles in the areas of possible matches
-                                                                 // do something else with matching
-                if (m.Similarity > similarityMax)
-                {
-                    similarityMax = m.Similarity;
-                }
-            }
-            bitmap2.UnlockBits(data);
-            //bitmap2.Save("SourceImage_Processed.bmp", ImageFormat.Bmp); //Saving the image.
-            resultbox.Image = bitmap2;
-
+            //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
+            //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
         }
     }
 }
