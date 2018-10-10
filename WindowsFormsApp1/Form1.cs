@@ -54,7 +54,7 @@ namespace SpecialTopicsFinals
 
             //CorrelationMatching matcher = new CorrelationMatching(5, grey1, grey2);
             //var results = matcher.GetHashCode();
-            var detector = new FastCornersDetector(60);
+            var detector = new FastCornersDetector(15);
             var freak = new FastRetinaKeypointDetector(detector);
             List<FastRetinaKeypoint> features1 = (List<FastRetinaKeypoint>)freak.Transform(grey1);
             modelPoints = features1.Count();
