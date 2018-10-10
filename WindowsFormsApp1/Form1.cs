@@ -13,6 +13,8 @@ using Accord.Imaging.Filters;
 using Shipwreck.Phash;
 using Shipwreck.Phash.Bitmaps;
 using Accord.Math.Distances;
+using Accord.Math;
+using Accord;
 
 namespace SpecialTopicsFinals
 {
@@ -25,10 +27,11 @@ namespace SpecialTopicsFinals
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            sourcebox.SizeMode = PictureBoxSizeMode.Zoom;
-            source2box.SizeMode = PictureBoxSizeMode.Zoom;
-            resultbox.SizeMode = PictureBoxSizeMode.Zoom;
-
+            sourcebox1.SizeMode = PictureBoxSizeMode.Zoom;
+            sourcebox2.SizeMode = PictureBoxSizeMode.Zoom;
+            resultbox1.SizeMode = PictureBoxSizeMode.Zoom;
+            resultbox2.SizeMode = PictureBoxSizeMode.Zoom;
+            
             TestImages t = new TestImages();
 
             string path_earl = System.IO.Path.GetFullPath(@"../../janre1.png");
@@ -37,8 +40,8 @@ namespace SpecialTopicsFinals
             var bitmap1 = new Bitmap(path_earl);
             var bitmap2 = new Bitmap(path_janre1);
 
-            sourcebox.Image = bitmap1;
-            source2box.Image = bitmap2;
+            sourcebox1.Image = bitmap1;
+            sourcebox2.Image = bitmap2;
         }
 
         private void sourcebox_btn_Click(object sender, EventArgs e)
@@ -54,7 +57,7 @@ namespace SpecialTopicsFinals
                     //textBox1.Text = openFileDialog1.FileName;
                     //sourcebox.Load(openFileDialog1.FileName);
                     var bitmap = new Bitmap(openFileDialog1.FileName);
-                    sourcebox.Image = bitmap;
+                    sourcebox1.Image = bitmap;
                 }
             }
             catch (Exception ex)
@@ -75,7 +78,7 @@ namespace SpecialTopicsFinals
                 {
                     //textBox1.Text = openFileDialog1.FileName;
                     var bitmap = new Bitmap(openFileDialog1.FileName);
-                    source2box.Image = bitmap;
+                    sourcebox2.Image = bitmap;
                 }
             }
             catch (Exception ex)
@@ -91,8 +94,8 @@ namespace SpecialTopicsFinals
 
         private void process1()
         {
-            var bitmap1 = (Bitmap)sourcebox.Image;
-            var bitmap2 = (Bitmap)source2box.Image;
+            var bitmap1 = (Bitmap)sourcebox1.Image;
+            var bitmap2 = (Bitmap)sourcebox2.Image;
             var hash1 = ImagePhash.ComputeDigest(bitmap1.ToLuminanceImage());
             var hash2 = ImagePhash.ComputeDigest(bitmap2.ToLuminanceImage());
             var score = ImagePhash.GetCrossCorrelation(hash1, hash2);
@@ -111,36 +114,45 @@ namespace SpecialTopicsFinals
             //var results = matcher.GetHashCode();
             var detector = new FastCornersDetector(15);
             var freak = new FastRetinaKeypointDetector(detector);
-            List<FastRetinaKeypoint> features1 = (List<FastRetinaKeypoint>)freak.Transform(grey1);
+            FastRetinaKeypoint[] features1 = freak.Transform(grey1).ToArray();
             modelPoints = features1.Count();
 
             Console.WriteLine("count: {0}", modelPoints);
 
 
-            List<FastRetinaKeypoint> features2 = (List<FastRetinaKeypoint>)freak.Transform(grey2);
+            FastRetinaKeypoint[] features2 = freak.Transform(grey2).ToArray();
 
             Console.WriteLine("count: {0}", features2.Count());
 
             KNearestNeighborMatching matcher = new KNearestNeighborMatching(5);
-            var results = matcher.Match(features1, features2);
-            matchingPoints = results.Count();
+            var length = 0;
+
+            IntPoint[][] results = matcher.Match(features1, features2);
+            matchingPoints = results[0].Count(); // similarity of image1 to image2
+            //matchingPoints = results[1].Count(); // similarity of image2 to image1
+
             Console.WriteLine("matched points: {0}", matchingPoints);
 
-            sourcebox.Image = grey1;
-            source2box.Image = grey2;
-            var marker = new FeaturesMarker(features1, 20);
-            resultbox.Image = marker.Apply(grey1);
+            sourcebox1.Image = bitmap1;
+            sourcebox2.Image = bitmap2;
+            var marker1 = new FeaturesMarker(features1, 30);
+            var marker2 = new FeaturesMarker(features2, 30);
 
-            float similPercent = 0;
+            resultbox1.Image = marker1.Apply(grey1);
+            resultbox2.Image = marker2.Apply(grey2);
+
+            double similPercent = 0;
             if (matchingPoints <= 0)
             {
                 similPercent = 0.0f;
             }
-            similPercent = (matchingPoints * 100) / modelPoints;
+            similPercent = (matchingPoints * 100d) / (double)modelPoints;
 
             Console.WriteLine("score: {0}", similPercent);
 
-            simil.Text = similPercent.ToString() + "%";
+            simil1.Text = similPercent.ToString() + "%";
+            simil2.Text = (score*100.00d).ToString() + "%";
+
 
             //resultbox.Image = resultdif;
 
