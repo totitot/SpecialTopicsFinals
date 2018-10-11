@@ -117,11 +117,15 @@ namespace SpecialTopicsFinals
             int modelPoints = 0, matchingPoints = 0;
 
             var skewChecker = new DocumentSkewChecker();
+            var angle1 = skewChecker.GetSkewAngle(grey1);
+            var rotationFilter1 = new RotateBicubic(-angle1);
+            rotationFilter1.FillColor = Color.White;
+            grey1 = rotationFilter1.Apply(grey1);
 
-            var angle = skewChecker.GetSkewAngle(grey2);
-            var rotationFilter = new RotateBicubic(-angle);
-            rotationFilter.FillColor = Color.White;
-            grey2 = rotationFilter.Apply(grey2);
+            var angle2 = skewChecker.GetSkewAngle(grey2);
+            var rotationFilter2 = new RotateBicubic(-angle2);
+            rotationFilter2.FillColor = Color.White;
+            grey2 = rotationFilter2.Apply(grey2);
 
             //CorrelationMatching matcher = new CorrelationMatching(5, grey1, grey2);
             //var results = matcher.GetHashCode();
@@ -136,12 +140,12 @@ namespace SpecialTopicsFinals
 
             Console.WriteLine("count: {0}", features2.Count());
 
-            KNearestNeighborMatching matcher = new KNearestNeighborMatching(5);
-            var length = 0;
+            KNearestNeighborMatching matcher = new KNearestNeighborMatching(7);
+            //var length = 0;
 
             IntPoint[][] results = matcher.Match(features1, features2);
             matchingPoints = results[0].Count(); // similarity of image1 to image2
-            //matchingPoints = results[1].Count(); // similarity of image2 to image1
+            ////matchingPoints = results[1].Count(); // similarity of image2 to image1
 
             Console.WriteLine("matched points: {0}", matchingPoints);
 
@@ -164,7 +168,7 @@ namespace SpecialTopicsFinals
             simil1.Text = similPercent.ToString("##.##") + "%";
             simil2.Text = (score*100.00d).ToString("##.##") + "%";
 
-            angle_text.Text = angle.ToString("##.##") + "°";
+            angle_text.Text = angle2.ToString("##.##") + "°";
             resultbox1.Image = marker1.Apply(grey1);
             resultbox2.Image = marker2.Apply(grey2);
 

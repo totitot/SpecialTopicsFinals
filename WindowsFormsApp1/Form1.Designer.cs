@@ -44,18 +44,24 @@
             this.simil2 = new System.Windows.Forms.Label();
             this.angle_label = new System.Windows.Forms.Label();
             this.angle_text = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultbox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultbox2)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // sourcebox1
             // 
             this.sourcebox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sourcebox1.Image = null;
-            this.sourcebox1.Location = new System.Drawing.Point(34, 22);
+            this.sourcebox1.Location = new System.Drawing.Point(15, 19);
             this.sourcebox1.Name = "sourcebox1";
             this.sourcebox1.Size = new System.Drawing.Size(260, 344);
             this.sourcebox1.TabIndex = 0;
@@ -74,7 +80,7 @@
             // 
             this.sourcebox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sourcebox2.Image = null;
-            this.sourcebox2.Location = new System.Drawing.Point(340, 22);
+            this.sourcebox2.Location = new System.Drawing.Point(299, 19);
             this.sourcebox2.Name = "sourcebox2";
             this.sourcebox2.Size = new System.Drawing.Size(260, 344);
             this.sourcebox2.TabIndex = 2;
@@ -88,7 +94,7 @@
             // 
             this.resultbox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.resultbox1.Image = null;
-            this.resultbox1.Location = new System.Drawing.Point(642, 22);
+            this.resultbox1.Location = new System.Drawing.Point(22, 19);
             this.resultbox1.Name = "resultbox1";
             this.resultbox1.Size = new System.Drawing.Size(294, 344);
             this.resultbox1.TabIndex = 3;
@@ -96,7 +102,7 @@
             // 
             // sourcebox_btn
             // 
-            this.sourcebox_btn.Location = new System.Drawing.Point(127, 384);
+            this.sourcebox_btn.Location = new System.Drawing.Point(135, 408);
             this.sourcebox_btn.Name = "sourcebox_btn";
             this.sourcebox_btn.Size = new System.Drawing.Size(59, 28);
             this.sourcebox_btn.TabIndex = 4;
@@ -106,7 +112,7 @@
             // 
             // source2box_btn
             // 
-            this.source2box_btn.Location = new System.Drawing.Point(433, 384);
+            this.source2box_btn.Location = new System.Drawing.Point(441, 408);
             this.source2box_btn.Name = "source2box_btn";
             this.source2box_btn.Size = new System.Drawing.Size(59, 28);
             this.source2box_btn.TabIndex = 5;
@@ -116,11 +122,11 @@
             // 
             // process_btn
             // 
-            this.process_btn.Location = new System.Drawing.Point(101, 554);
+            this.process_btn.Location = new System.Drawing.Point(153, 492);
             this.process_btn.Name = "process_btn";
             this.process_btn.Size = new System.Drawing.Size(59, 28);
             this.process_btn.TabIndex = 6;
-            this.process_btn.Text = "process";
+            this.process_btn.Text = "Process";
             this.process_btn.UseVisualStyleBackColor = true;
             this.process_btn.Click += new System.EventHandler(this.process_btn_Click);
             // 
@@ -128,7 +134,7 @@
             // 
             this.freak_label.AutoSize = true;
             this.freak_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.freak_label.Location = new System.Drawing.Point(98, 610);
+            this.freak_label.Location = new System.Drawing.Point(310, 492);
             this.freak_label.Name = "freak_label";
             this.freak_label.Size = new System.Drawing.Size(94, 18);
             this.freak_label.TabIndex = 7;
@@ -146,7 +152,7 @@
             // 
             this.simil1.AutoSize = true;
             this.simil1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simil1.Location = new System.Drawing.Point(217, 610);
+            this.simil1.Location = new System.Drawing.Point(429, 492);
             this.simil1.Name = "simil1";
             this.simil1.Size = new System.Drawing.Size(21, 18);
             this.simil1.TabIndex = 9;
@@ -156,7 +162,7 @@
             // 
             this.resultbox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.resultbox2.Image = null;
-            this.resultbox2.Location = new System.Drawing.Point(979, 22);
+            this.resultbox2.Location = new System.Drawing.Point(339, 19);
             this.resultbox2.Name = "resultbox2";
             this.resultbox2.Size = new System.Drawing.Size(294, 344);
             this.resultbox2.TabIndex = 10;
@@ -166,7 +172,7 @@
             // 
             this.phash_label.AutoSize = true;
             this.phash_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.phash_label.Location = new System.Drawing.Point(98, 628);
+            this.phash_label.Location = new System.Drawing.Point(310, 510);
             this.phash_label.Name = "phash_label";
             this.phash_label.Size = new System.Drawing.Size(96, 18);
             this.phash_label.TabIndex = 11;
@@ -176,7 +182,7 @@
             // 
             this.simil2.AutoSize = true;
             this.simil2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.simil2.Location = new System.Drawing.Point(217, 628);
+            this.simil2.Location = new System.Drawing.Point(429, 510);
             this.simil2.Name = "simil2";
             this.simil2.Size = new System.Drawing.Size(21, 18);
             this.simil2.TabIndex = 9;
@@ -186,7 +192,7 @@
             // 
             this.angle_label.AutoSize = true;
             this.angle_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.angle_label.Location = new System.Drawing.Point(276, 610);
+            this.angle_label.Location = new System.Drawing.Point(245, 34);
             this.angle_label.Name = "angle_label";
             this.angle_label.Size = new System.Drawing.Size(107, 18);
             this.angle_label.TabIndex = 7;
@@ -196,32 +202,62 @@
             // 
             this.angle_text.AutoSize = true;
             this.angle_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.angle_text.Location = new System.Drawing.Point(413, 610);
+            this.angle_text.Location = new System.Drawing.Point(382, 34);
             this.angle_text.Name = "angle_text";
             this.angle_text.Size = new System.Drawing.Size(18, 18);
             this.angle_text.TabIndex = 9;
             this.angle_text.Text = "° ";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.angle_label);
+            this.groupBox1.Controls.Add(this.angle_text);
+            this.groupBox1.Location = new System.Drawing.Point(289, 458);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(434, 92);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Results";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.sourcebox2);
+            this.groupBox2.Controls.Add(this.sourcebox1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 25);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(576, 374);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Source Images";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.resultbox1);
+            this.groupBox3.Controls.Add(this.resultbox2);
+            this.groupBox3.Location = new System.Drawing.Point(608, 25);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(652, 374);
+            this.groupBox3.TabIndex = 14;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Output Images";
+            // 
             // SpecialTopicsFinals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1316, 681);
+            this.ClientSize = new System.Drawing.Size(1305, 571);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.phash_label);
-            this.Controls.Add(this.resultbox2);
             this.Controls.Add(this.simil2);
-            this.Controls.Add(this.angle_text);
             this.Controls.Add(this.simil1);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.angle_label);
             this.Controls.Add(this.freak_label);
             this.Controls.Add(this.process_btn);
             this.Controls.Add(this.source2box_btn);
             this.Controls.Add(this.sourcebox_btn);
-            this.Controls.Add(this.resultbox1);
-            this.Controls.Add(this.sourcebox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.sourcebox1);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox3);
             this.Name = "SpecialTopicsFinals";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -230,6 +266,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.sourcebox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultbox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.resultbox2)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,6 +293,9 @@
         private System.Windows.Forms.Label simil2;
         private System.Windows.Forms.Label angle_label;
         private System.Windows.Forms.Label angle_text;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 
