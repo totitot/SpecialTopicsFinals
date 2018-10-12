@@ -236,7 +236,7 @@
             this.groupBox3.Size = new System.Drawing.Size(652, 393);
             this.groupBox3.TabIndex = 14;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Output Images";
+            this.groupBox3.Text = "Output Images (with detected features)";
             // 
             // label1
             // 
@@ -261,18 +261,18 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(21, 24);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.Size = new System.Drawing.Size(54, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "FREAK";
+            this.label4.Text = "Template ";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(338, 24);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "PHASH";
+            this.label5.Text = "Image";
             // 
             // SpecialTopicsFinals
             // 
