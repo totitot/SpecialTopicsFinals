@@ -172,10 +172,6 @@ namespace SpecialTopicsFinals
             resultbox1.Image = marker1.Apply(grey1);
             resultbox2.Image = marker2.Apply(grey2);
 
-            //resultbox.Image = resultdif;
-
-            //CorrelationMatching cormatch = new CorrelationMatching(3, baboon, result);
-            //Console.WriteLine("max distance: {0}", cormatch.GetHashCode());
         }
 
 
