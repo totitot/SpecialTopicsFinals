@@ -34,11 +34,11 @@ namespace SpecialTopicsFinals
             
             TestImages t = new TestImages();
 
-            string path_earl = System.IO.Path.GetFullPath(@"../../janre1.png");
-            string path_janre1 = System.IO.Path.GetFullPath(@"../../earl.png");
+            string path1 = System.IO.Path.GetFullPath(@"../../janre1.png");
+            string path2 = System.IO.Path.GetFullPath(@"../../janre1.png");
 
-            var bitmap1 = new Bitmap(path_earl);
-            var bitmap2 = new Bitmap(path_janre1);
+            var bitmap1 = new Bitmap(path1);
+            var bitmap2 = new Bitmap(path2);
 
             sourcebox1.Image = bitmap1;
             sourcebox2.Image = bitmap2;
